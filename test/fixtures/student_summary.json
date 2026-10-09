@@ -1,0 +1,28 @@
+{
+ "student_id": 1485,
+ "first_name": "Student",
+ "last_name": "0",
+ "birth_date": "2010-05-17",
+ "phone_numbers": [
+  {
+   "id": 1,
+   "number": "0550000000",
+   "type": "parent",
+   "is_primary": true
+  }
+ ],
+ "groups": [
+  {
+   "id": 48,
+   "name": "ANG prim n4 G2/RAYANE",
+   "state": "running",
+   "course_id": 37,
+   "course_name": "Kids English Course",
+   "attended": 6,
+   "marked": 8
+  }
+ ],
+ "attended": 6,
+ "marked": 8,
+ "attendance_percentage": 75
+}

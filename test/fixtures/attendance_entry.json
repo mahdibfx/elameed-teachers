@@ -1,0 +1,30 @@
+{
+ "session_id": 662,
+ "group_id": 184,
+ "group_name": " FR PRM ( hanane derbal ) 4ap",
+ "date": "2026-09-25",
+ "time_start": "10:30:00",
+ "time_end": "12:00:00",
+ "session_status": "held",
+ "unit": null,
+ "attendance_id": 5808,
+ "state": "present",
+ "notes": null,
+ "feedback": {
+  "arrival": {
+   "time": null,
+   "status": "on_time"
+  },
+  "departure": {
+   "time": null,
+   "status": "normal"
+  },
+  "understanding": 4,
+  "concentration": 3,
+  "engagement": 3,
+  "homework": "done",
+  "next_step": "review",
+  "behavior": 0,
+  "note": null
+ }
+}

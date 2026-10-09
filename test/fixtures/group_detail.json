@@ -1,0 +1,51 @@
+{
+ "id": 48,
+ "name": "ANG prim n4 G2/RAYANE",
+ "session_hours": "39.00",
+ "number_of_sessions": 26,
+ "price": "6700.00",
+ "teacher_id": 84,
+ "created_at": "2026-08-08T16:23:43.421Z",
+ "updated_at": "2026-09-21T07:25:15.959Z",
+ "state": "running",
+ "course_id": 37,
+ "teacher_salary_type": "static",
+ "teacher_salary_amount": "800.00",
+ "type_group": "simple",
+ "number_cycle_payments": 1,
+ "number_days_cycle_payment": 90,
+ "running_since": "2026-08-08T18:40:16.345Z",
+ "teacher_fname_en": "Rayane ",
+ "teacher_lname_en": "Boulekroune ",
+ "teacher_fname_ar": "Rayane ",
+ "teacher_lname_ar": "Boulekroune ",
+ "teacher_salary_calculated": "800.00",
+ "payments_count": 11,
+ "payments_paid_count": 9,
+ "payments_total_amount": "67200",
+ "payments_total_paid": "60300",
+ "cycle_planned_sessions": 26,
+ "cycle_held_sessions": 8,
+ "cycle_planned_hours": 1014,
+ "cycle_held_hours": 12,
+ "students": [
+  {
+   "student_id": 1485,
+   "course_id": 37,
+   "first_name": "Student",
+   "last_name": "0",
+   "email": "x@example.com",
+   "phone_number": "0550000000",
+   "assigned_at": "2026-08-08T16:42:59.505681"
+  },
+  {
+   "student_id": 1486,
+   "course_id": 37,
+   "first_name": "Student",
+   "last_name": "1",
+   "email": "x@example.com",
+   "phone_number": "0550000000",
+   "assigned_at": "2026-08-08T16:43:01.096405"
+  }
+ ]
+}

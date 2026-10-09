@@ -1,0 +1,41 @@
+{
+ "data": [
+  {
+   "student_id": 3112,
+   "first_name": "Student",
+   "last_name": "0",
+   "birth_date": "2019-02-18",
+   "attended": 4,
+   "marked": 5,
+   "phone_numbers": [
+    {
+     "id": 1,
+     "number": "0550000000",
+     "type": "personal",
+     "is_primary": true,
+     "label": null
+    }
+   ]
+  },
+  {
+   "student_id": 1493,
+   "first_name": "Student",
+   "last_name": "1",
+   "birth_date": null,
+   "attended": 5,
+   "marked": 8,
+   "phone_numbers": [
+    {
+     "id": 1,
+     "number": "0550000001",
+     "type": "personal",
+     "is_primary": false,
+     "label": null
+    }
+   ]
+  }
+ ],
+ "pagination": {
+  "page": 1
+ }
+}

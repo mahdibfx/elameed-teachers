@@ -1,0 +1,182 @@
+<title>Teachers App Backend Requests</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #fbf8f6;
+    --surface: #ffffff;
+    --ink: #1e1b1a;
+    --muted: #6b5a55;
+    --rule: #eee2dd;
+    --accent: #e0601a;
+    --crit: #b3261e;
+    --crit-soft: #fbe3e1;
+    --need: #9a5b00;
+    --need-soft: #fcefd9;
+    --ask: #2b4fd8;
+    --ask-soft: #e5ecff;
+    --ok: #0e7a55;
+    --ok-soft: #e3f5ec;
+    --code-bg: #f4eeeb;
+    --display: "Plus Jakarta Sans", system-ui, sans-serif;
+    --body: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #171413; --surface: #211d1b; --ink: #f2ece9; --muted: #b3a39d; --rule: #3a322f;
+      --accent: #ff8a4c; --crit: #ff8a80; --crit-soft: #3e1d1b; --need: #f0b562; --need-soft: #3a2a12;
+      --ask: #8fa8ff; --ask-soft: #1d2542; --ok: #5fd0a3; --ok-soft: #123024; --code-bg: #2b2522;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #171413; --surface: #211d1b; --ink: #f2ece9; --muted: #b3a39d; --rule: #3a322f;
+    --accent: #ff8a4c; --crit: #ff8a80; --crit-soft: #3e1d1b; --need: #f0b562; --need-soft: #3a2a12;
+    --ask: #8fa8ff; --ask-soft: #1d2542; --ok: #5fd0a3; --ok-soft: #123024; --code-bg: #2b2522;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font: 400 15px/1.6 var(--body);
+    padding-inline: 16px;
+    padding-block: 40px 64px;
+  }
+  main { max-width: 780px; margin: 0 auto; display: grid; gap: 40px; }
+
+  header { display: grid; gap: 12px; }
+  .eyebrow { font: 600 12px/1 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  h1 { font: 800 clamp(28px, 5vw, 38px)/1.1 var(--display); margin: 0; text-wrap: balance; }
+  h2 { font: 700 21px/1.25 var(--display); margin: 0; text-wrap: balance; }
+  h3 { font: 700 16px/1.35 var(--display); margin: 0; }
+  p { margin: 0; max-width: 68ch; }
+  .lede { color: var(--muted); }
+  code { font: 500 .88em var(--mono); background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; color: var(--muted); padding-top: 4px; }
+  .facts b { color: var(--ink); font-weight: 600; }
+
+  .tally { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); }
+  .tally div { padding: 14px 12px; display: grid; gap: 2px; }
+  .tally div + div { border-inline-start: 1px solid var(--rule); }
+  .tally strong { font: 800 24px/1 var(--display); font-variant-numeric: tabular-nums; }
+  .tally span { font-size: 12px; color: var(--muted); }
+  .tally .ok strong { color: var(--ok); }
+  .tally .c strong { color: var(--crit); }
+  .tally .n strong { color: var(--need); }
+  .tally .a strong { color: var(--ask); }
+
+  section { display: grid; gap: 16px; }
+  .section-head { display: grid; gap: 6px; }
+
+  .chip { display: inline-block; font: 600 11px/1 var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; width: fit-content; }
+  .chip.crit { color: var(--crit); background: var(--crit-soft); }
+  .chip.need { color: var(--need); background: var(--need-soft); }
+  .chip.ask  { color: var(--ask);  background: var(--ask-soft); }
+  .chip.ok   { color: var(--ok);   background: var(--ok-soft); }
+
+  .alert { border: 1px solid var(--crit); background: var(--crit-soft); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: start; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font: 600 12px/1.3 var(--body); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  .alert th, .alert td { border-color: color-mix(in srgb, var(--crit) 25%, transparent); }
+  td .open { color: var(--crit); font-weight: 600; }
+  td .fixed { color: var(--ok); font-weight: 600; }
+
+  ul.done { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  ul.done li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; }
+  ul.done li::before { content: "✓"; color: var(--ok); font-weight: 700; }
+  ul.done b { font-weight: 600; }
+  ul.done span { color: var(--muted); }
+
+  ol.items { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: item; }
+  ol.items > li { counter-increment: item; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; display: grid; gap: 10px; }
+  ol.items > li h3::before { content: counter(item) ". "; color: var(--muted); font-variant-numeric: tabular-nums; }
+  dl { margin: 0; display: grid; grid-template-columns: 110px 1fr; gap: 6px 14px; font-size: 14px; }
+  dt { color: var(--muted); font-weight: 500; }
+  dd { margin: 0; }
+  dd.ask { font-weight: 600; }
+
+  ul.questions { margin: 0; padding-inline-start: 20px; display: grid; gap: 10px; }
+  footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
+
+  @media (max-width: 520px) {
+    dl { grid-template-columns: 1fr; gap: 2px; }
+    dd { margin-bottom: 8px; }
+    .tally { grid-template-columns: repeat(2, 1fr); }
+    .tally div:nth-child(3) { border-inline-start: none; }
+    .tally div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  }
+</style>
+
+<main>
+  <header>
+    <span class="eyebrow">Teachers App · El Ameed</span>
+    <h1>What the app needs from the backend</h1>
+    <p class="lede">The backend answered every request on 9 Oct and the app is wired to all of it. Checked against the live API on 9 Oct: the security holes are closed and all the new endpoints answer. What is left is setup, not code.</p>
+    <div class="facts">
+      <span>API <b>backendelameed.onrender.com</b></span>
+      <span>Verified live <b>9 Oct 2026</b></span>
+      <span>Teacher-area update wired in <b>3 Oct 2026</b></span>
+      <span>Security re-checked <b>4 Oct 2026</b> — still open</span>
+    </div>
+  </header>
+
+  <div class="tally" role="list">
+    <div class="ok" role="listitem"><strong>10</strong><span>delivered &amp; wired in</span></div>
+    <div class="c" role="listitem"><strong>0</strong><span>blocking</span></div>
+    <div class="n" role="listitem"><strong>2</strong><span>setup left</span></div>
+    <div class="a" role="listitem"><strong>0</strong><span>to confirm</span></div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <span class="chip ok">Delivered</span>
+      <h2>Done — live on the API and used by the app</h2>
+      <p class="lede">Everything in your 9 Oct answer, point by point.</p>
+    </div>
+    <ul class="done">
+      <li><span><b>Security</b> — every route I flagged now returns <b>401</b> without a token: <code>/sessions</code>, <code>/sessions/:id</code>, <code>/groups/:id</code>, <code>/groups/:id/students</code>, <code>/groups/schedules</code>, <code>/students</code>. Attendance writes are limited to the teacher's own groups. Only <code>/rooms</code> is still open, which is just room labels.</span></li>
+      <li><span><b>Cancel with a justification</b> — the teacher can attach a photo or a PDF (camera, gallery or file), sent as multipart.</span></li>
+      <li><span><b>Replacement teacher</b> — typing a name searches <code>/teacher/directory</code>; picking a colleague sends their id, and a free-typed name goes as text. It no longer rides inside the description.</span></li>
+      <li><span><b>15-minute grace</b> — Cancel stays available until 15 minutes after the start, as the rule now says.</span></li>
+      <li><span><b>Ask to Edit</b> — a held session shows a button that sends the request with an optional reason, then shows "waiting for the office" with a Withdraw button.</span></li>
+      <li><span><b>Problem category</b> — the six problems from the design are sent as <code>category</code> codes instead of the first line of the description.</span></li>
+      <li><span><b>Payments tab</b> — back in the app: total paid, this year, salary terms per group and the payment history.</span></li>
+      <li><span><b>Stopped groups</b> — the Groups screen's Stopped section and Student Info's Completed Groups now fill up, with the real <code>running_since ~ stopped_at</code> period. Their sessions are shown read-only.</span></li>
+      <li><span><b>Push notifications</b> — the app registers the phone on login, removes it on logout, and reloads the sessions and local reminders when the office changes one. It stays switched off until the Firebase file exists (see below).</span></li>
+      <li><span><b>Test account</b> — group 310 has its weekly schedule and session 1406 (Sat 10 Oct, 18:00) is waiting to be tried.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="chip need">Setup left</span>
+      <h2>Two things that aren't code</h2>
+    </div>
+    <ol class="items">
+      <li>
+        <h3>The FCM server key on Render</h3>
+        <dl>
+          <dt>Done</dt><dd>The app is connected to the Firebase project <code>elameed-system</code>: Android app <code>com.elameed.teachers</code> registered, <code>google-services.json</code> and <code>firebase_options.dart</code> in the repo, Gradle plugin on.</dd>
+          <dt>Left</dt><dd>Firebase → <em>Project settings → Service accounts → Generate new private key</em>, then set that JSON as <code>FCM_SERVICE_ACCOUNT_JSON</code> on Render. Until it is set the server skips every push.</dd>
+          <dt>Meanwhile</dt><dd>The phone registers its token fine; it just never receives anything.</dd>
+        </dl>
+      </li>
+      <li>
+        <h3>Nothing has been tested with a teacher login yet</h3>
+        <dl>
+          <dt>State</dt><dd>Every read was checked with an admin token. Cancel, confirm, Ask to Edit, attendance and the uploads are written but have never run against the server, because those writes hit production and notify the office.</dd>
+          <dt>Next</dt><dd>One pass on the phone with the test teacher on session 1406, then we fix whatever the server answers.</dd>
+        </dl>
+      </li>
+    </ol>
+  </section>
+
+  <footer>Also settled: session states stay yours — <b>Pending</b>, <b>Held</b>, <b>Not held</b>; <code>next_step</code> stays a single choice; a held session is read-only until an Ask to Edit is approved. The salary owed is still not computed anywhere, so the Payments tab shows only what was paid.</footer>
+</main>
