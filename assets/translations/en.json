@@ -172,7 +172,8 @@
     "not_found": "Not found",
     "validation": "Invalid data",
     "server": "Server error",
-    "session_expired": "Session expired, please log in again"
+    "session_expired": "Session expired, please log in again",
+    "invalid_credentials": "Wrong email or password"
   },
   "login": {
     "title": "Welcome back",

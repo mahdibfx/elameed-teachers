@@ -3,6 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:teachers_app/app/app.locator.dart';
 import 'package:teachers_app/models/api_response.dart';
 import 'package:teachers_app/models/failure.dart';
+import 'package:teachers_app/services/api/api_endpoints.dart';
 import 'package:teachers_app/services/auth_service.dart';
 import 'package:teachers_app/ui/common/app_strings.dart';
 
@@ -52,6 +53,10 @@ Failure _mapDioException(DioException e) {
 Failure _mapResponse(Response? response) {
   if (response == null) return GeneralFailure(AppStrings.unknownError);
 
+  // On the sign-in calls a 401 means wrong credentials, not a session to end.
+  final isSignIn = response.requestOptions.path.contains(ApiEndpoints.login) ||
+      response.requestOptions.path.contains(ApiEndpoints.verifyToken);
+
   final data = response.data;
   final message = data is Map && data['message'] is String ? data['message'] as String : null;
   final errors = data is Map && data['errors'] is Map<String, dynamic>
@@ -61,12 +66,13 @@ Failure _mapResponse(Response? response) {
   switch (response.statusCode) {
     case 400:
       // teacher_id=me with a missing/expired token comes back as 400, not 401.
-      if (message != null && message.toLowerCase().contains('token')) {
+      if (!isSignIn && message != null && message.toLowerCase().contains('token')) {
         _handleUnauthorized();
         return GeneralFailure(AppStrings.sessionExpired);
       }
       return ValidationFailure(message ?? AppStrings.validationError, errors);
     case 401:
+      if (isSignIn) return GeneralFailure(AppStrings.invalidCredentials);
       _handleUnauthorized();
       return GeneralFailure(AppStrings.sessionExpired);
     case 403:

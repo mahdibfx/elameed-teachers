@@ -9,7 +9,7 @@ plugins {
 android {
     namespace = "com.elameed.teachers"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973" // already installed; flutter.ndkVersion (28.2) would pull a 5 GB download
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true // flutter_local_notifications

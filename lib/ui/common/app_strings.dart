@@ -10,5 +10,6 @@ class AppStrings {
   static String get notFound => 'errors.not_found'.tr();
   static String get validationError => 'errors.validation'.tr();
   static String get internalServerError => 'errors.server'.tr();
+  static String get invalidCredentials => 'errors.invalid_credentials'.tr();
   static String get sessionExpired => 'errors.session_expired'.tr();
 }

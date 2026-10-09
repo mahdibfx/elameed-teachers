@@ -172,7 +172,8 @@
     "not_found": "Élément introuvable",
     "validation": "Données invalides",
     "server": "Erreur serveur",
-    "session_expired": "Session expirée, reconnectez-vous"
+    "session_expired": "Session expirée, reconnectez-vous",
+    "invalid_credentials": "E-mail ou mot de passe incorrect"
   },
   "login": {
     "title": "Bon retour",
